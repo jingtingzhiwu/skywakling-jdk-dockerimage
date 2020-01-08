@@ -4,7 +4,7 @@
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-FROM alpine:3.9
+FROM alpine:latest
 
 # A few reasons for installing distribution-provided OpenJDK:
 #
@@ -31,10 +31,10 @@ RUN { \
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV PATH $PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin
 
-ENV JAVA_VERSION 8u212
-ENV JAVA_ALPINE_VERSION 8.212.04-r0
+ENV JAVA_VERSION 8u232
+ENV JAVA_ALPINE_VERSION 8.232.09-r0
 
-RUN set -x \
+RUN 	set -x \
 	&& apk add --no-cache \
 		openjdk8="$JAVA_ALPINE_VERSION" \
 	&& [ "$JAVA_HOME" = "$(docker-java-home)" ]
@@ -45,4 +45,5 @@ RUN set -x \
 #   https://github.com/docker-library/openjdk/issues
 
 #skywalking agent
-ADD /skywalking/ /skywalking/
+ADD skywalking-agent.jar /skywalking/skywalking-agent.jar
+ADD config/agent.config /skywakling/config/agent.config
