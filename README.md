@@ -16,3 +16,4 @@
 
 
 //anapsix/alpine-java:8_server-jre_unlimited
+//RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
