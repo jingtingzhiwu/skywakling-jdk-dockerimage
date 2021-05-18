@@ -17,3 +17,27 @@
 
 //anapsix/alpine-java:8_server-jre_unlimited<br/>
 //RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+<br />
+<br />
+<br />
+
+- 2021/5/18 -> jdk8u282 & *新增字体包*
+
+```
+FROM adoptopenjdk/openjdk8-openj9:jdk8u282-b08_openj9-0.24.0-alpine-slim
+
+ENV LANG C.UTF-8
+
+#utc+8 china
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+#font package
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+RUN set -xe && apk --no-cache add ttf-dejavu fontconfig
+
+#skywalking agent
+ADD skywalking-agent.jar /skywalking/skywalking-agent.jar
+ADD config/agent.config /skywakling/config/agent.config
+
+```
