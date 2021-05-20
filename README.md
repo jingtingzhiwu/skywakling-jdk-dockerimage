@@ -1,4 +1,4 @@
-# skywakling-jdk-dockerimage
+# 注意Linux 宿主机的时区 = Docker容器时区(skywalking oap server/skywalking ui/es) = agent客户端时区 
 
 - 2020/1/8 -> jdk8u232
 
@@ -9,8 +9,9 @@
 │   └── agent.config<br />
 ├── Dockerfile<br />
 └── skywalking-agent.jar<br />
+└── ...        <br />
 
-1 directory, 3 files
+6 directory, 105 files
 
 
 
@@ -27,6 +28,8 @@
 ```
 FROM adoptopenjdk/openjdk8-openj9:jdk8u282-b08_openj9-0.24.0-alpine-slim
 
+MAINTAINER admin@wilkey.vip
+
 ENV LANG C.UTF-8
 
 #utc+8 china
@@ -39,5 +42,10 @@ RUN set -xe && apk --no-cache add ttf-dejavu fontconfig
 #skywalking agent
 ADD skywalking-agent.jar /skywalking/skywalking-agent.jar
 ADD config/agent.config /skywalking/config/agent.config
+COPY activations /skywalking/activations
+COPY bootstrap-plugins /skywalking/bootstrap-plugins
+COPY optional-plugins /skywalking/optional-plugins
+COPY optional-reporter-plugins /skywalking/optional-reporter-plugins
+COPY plugins /skywalking/plugins
 
 ```
